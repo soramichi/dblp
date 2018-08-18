@@ -35,11 +35,14 @@ if __name__ == '__main__':
     for r in records:
         rr = r[0] # r[0]: <inproceedings> or <article> or ...
         title = rr.findtext('title')
-        authors = list(map(lambda x: x.text, rr.findall('author')))
+        if rr.tag == 'proceedings':
+            authors = list(map(lambda x: x.text, rr.findall('editor')))
+        else:
+            authors = list(map(lambda x: x.text, rr.findall('author')))
 
         if rr.tag == 'article':
             booktitle = rr.findtext('journal')
-        elif rr.tag == 'inproceedings' or rr.tag == 'incollection':
+        elif rr.tag == 'inproceedings' or rr.tag == 'incollection' or rr.tag == 'proceedings':
             booktitle = rr.findtext('booktitle')
 
         try: # <pages> may not exist (especially when the record is of an arXiv paper)
