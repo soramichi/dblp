@@ -1,8 +1,12 @@
 (load "##first##_##last##_data.lsp")
 
+(defun neq (x y) (not (eq x y)))
+
 (defun author-position (author data)
   (mapcar
-   (lambda (datum) (position-if (lambda (x) (equal author x)) (car datum)))
+   (lambda (datum)
+     (let ((pos (position-if (lambda (x) (equal author x)) (car datum))))
+       (cond ((eq pos nil) -1) (t pos))))
    data))
 
 (defun list-publication-iter (data author-positions pred lst)
@@ -22,7 +26,7 @@
 (princ #\Newline)
 (princ #\Newline)
 (princ "Other papers:")
-(print (list-publication "##first## ##last##" data (lambda (x) (> x 0))))
+(print (list-publication "##first## ##last##" data (lambda (x) (neq x 0))))
 
 (princ #\Newline)
 (quit)
