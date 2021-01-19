@@ -3,6 +3,7 @@ Categorize DBLP records to "1st-author papers" and "other papers"
 
 # Prerequisites
 - python (3.x)
+  - urllib3
 - gcl (GNU Common Lisp)
 - bash
 
